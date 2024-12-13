@@ -24,56 +24,89 @@ class opencart_page(web_base_page):
         self.text_remover_producto = "(//div[@id='content']/p)[1]"
 
     def ingreso_a_portal(self, url):
-        self.driver.maximize_window()
-        self.driver.get(url)
-    
+        try: 
+            self.driver.maximize_window()
+            self.driver.get(url)
+        except Exception as e:
+            raise Exception("Error al ingresar al portal: ", str(e))
+        
     def get_text_title(self):
-        super().wait_until_element_is_visible(self.title_portal)
-        element = self.driver.find_element(By.XPATH, self.title_portal)  
-        return element.text 
+        try:
+            super().wait_until_element_is_visible(self.title_portal)
+            element = self.driver.find_element(By.XPATH, self.title_portal)  
+            return element.text 
+        except Exception as e:
+            raise Exception("Error al obtener el título: ", str(e))
     
     def send_keys_barra_busqueda(self, texto):
-        super().wait_until_element_is_visible(self.barra_busqueda)
-        element = self.driver.find_element(By.XPATH, self.barra_busqueda)
-        element.send_keys(texto)
-        element.send_keys(Keys.ENTER)
+        try:
+            super().wait_until_element_is_visible(self.barra_busqueda)
+            element = self.driver.find_element(By.XPATH, self.barra_busqueda)
+            element.send_keys(texto)
+            element.send_keys(Keys.ENTER)
+        except Exception as e:
+            raise Exception("Error al ingresar texto en la barra de búsqueda: ", str(e))
 
     def get_text_title_busqueda(self):
-        super().wait_until_element_is_visible(self.title_busqueda)
-        element = self.driver.find_element(By.XPATH, self.title_busqueda)  
-        return element.text 
-    
+        try:
+            super().wait_until_element_is_visible(self.title_busqueda)
+            element = self.driver.find_element(By.XPATH, self.title_busqueda)  
+            return element.text 
+        except Exception as e:
+            raise Exception("Error al obtener el título de la búsqueda: ", str(e))
+        
     def click_primer_item(self):
-        super().wait_until_element_is_visible(self.lista_items)
-        elemento = self.driver.find_element(By.XPATH,"//div[@id='content']/div[3]/div[1]")
-        elemento.click()
+        try:
+            super().wait_until_element_is_visible(self.lista_items)
+            elemento = self.driver.find_element(By.XPATH,"//div[@id='content']/div[3]/div[1]")
+            elemento.click()
+        except Exception as e:
+            raise Exception("Error al seleccionar el primer item: ", str(e))
         
     def click_agregar_item_carrito(self, element):
-        super().wait_until_element_is_clickable(element)
-        element.click()
+        try:
+            super().wait_until_element_is_clickable(element)
+            element.click()
+        except Exception as e:
+            raise Exception("Error al seleccionar el botón Agregar al carrito: ", str(e))
     
     def get_text_title_producto(self):
-        super().wait_until_element_is_visible(self.title_producto)
-        element = self.driver.find_element(By.XPATH, self.title_producto)  
-        return element.text 
+        try:
+            super().wait_until_element_is_visible(self.title_producto)
+            element = self.driver.find_element(By.XPATH, self.title_producto)  
+            return element.text 
+        except Exception as e:
+            raise Exception("Error al obtener el título del producto: ", str(e))
     
     def click_boton_agregar_a_carrito(self):
-        super().wait_until_element_is_visible(self.boton_agregar_carrito)
-        self.driver.find_element(By.XPATH, self.boton_agregar_carrito).click()
+        try:
+            super().wait_until_element_is_visible(self.boton_agregar_carrito)
+            self.driver.find_element(By.XPATH, self.boton_agregar_carrito).click()
+        except Exception as e:
+            raise Exception("Error al seleccionar el botón Agregar al carrito: ", str(e))
 
     def get_text_label_agregar_producto(self):
-        super().wait_until_element_is_visible(self.text_confirmacion_agregar_producto)
-        element = self.driver.find_element(By.XPATH, self.text_confirmacion_agregar_producto)  
-        return element.text 
+        try:
+            super().wait_until_element_is_visible(self.text_confirmacion_agregar_producto)
+            element = self.driver.find_element(By.XPATH, self.text_confirmacion_agregar_producto)  
+            return element.text 
+        except Exception as e:
+            raise Exception("Error al obtener el texto de confirmación de agregar producto: ", str(e))
     
     def click_boton_carrito_compra(self):
-        super().wait_until_element_is_visible(self.boton_carrito_compra)
-        self.driver.find_element(By.XPATH, self.boton_carrito_compra).click()
+        try:
+            super().wait_until_element_is_visible(self.boton_carrito_compra)
+            self.driver.find_element(By.XPATH, self.boton_carrito_compra).click()
+        except Exception as e:
+            raise Exception("Error al seleccionar el botón Continuar compra: ", str(e))
 
     def is_displayed_carrito_compra(self):
-        super().wait_until_element_is_visible(self.div_carrito_compra_desplegado)
-        element = self.driver.find_element(By.XPATH, self.div_carrito_compra_desplegado)
-        return super().is_displayed(element, 30)
+        try:
+            super().wait_until_element_is_visible(self.div_carrito_compra_desplegado)
+            element = self.driver.find_element(By.XPATH, self.div_carrito_compra_desplegado)
+            return super().is_displayed(element, 30)
+        except Exception as e:
+            raise Exception("Error al verificar si el carrito de compra está desplegado: ", str(e))
     
     def get_text_primer_producto_carrito(self):
         try:
@@ -84,15 +117,24 @@ class opencart_page(web_base_page):
             raise Exception("Error" + str(e))
     
     def click_boton_view_cart(self):
-        super().wait_until_element_is_visible(self.boton_view_cart)
-        self.driver.find_element(By.XPATH, self.boton_view_cart).click()
+        try:
+            super().wait_until_element_is_visible(self.boton_view_cart)
+            self.driver.find_element(By.XPATH, self.boton_view_cart).click()
+        except Exception as e:
+            raise Exception("Error al seleccionar el botón Ver carrito: ", str(e))
 
     def click_boton_remover_producto(self):
-        super().wait_until_element_is_visible(self.boton_remover_producto)
-        self.driver.find_element(By.XPATH, self.boton_remover_producto).click()
+        try:
+            super().wait_until_element_is_visible(self.boton_remover_producto)
+            self.driver.find_element(By.XPATH, self.boton_remover_producto).click()
+        except Exception as e:
+            raise Exception("Error al seleccionar el botón Remover producto: ", str(e))
         
     def get_text_remover_producto(self):
-        sleep(3)
-        super().wait_until_element_is_visible(self.text_remover_producto)
-        element = self.driver.find_element(By.XPATH, self.text_remover_producto)  
-        return element.text
+        try:
+            sleep(3)
+            super().wait_until_element_is_visible(self.text_remover_producto)
+            element = self.driver.find_element(By.XPATH, self.text_remover_producto)  
+            return element.text
+        except Exception as e: 
+            raise Exception("Error al obtener el texto de confirmación de remover producto: ", str(e))

@@ -8,9 +8,6 @@ class web_base_page:
 
     def __init__(self, driver):
         self.driver = driver
-    
-    def find_element_by_xpath(self, xpath):
-        return self.driver(f"return {js_query}")
 
     def is_displayed(self, element, timeout=30):
         try:
